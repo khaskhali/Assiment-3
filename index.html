@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Movie Recommendation App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    /* Style the page layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+select {
+  display: block;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+#result {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Style the form elements */
+input[type="radio"] {
+  margin-top: 10px;
+}
+
+/* Style the radio button labels */
+label.radio {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Style the radio button indicators */
+label.radio:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+label.radio:hover:before {
+  border-color: #4caf50;
+}
+
+input[type="radio"]:checked + label.radio:before {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+/* Style the error message */
+#error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+  </style>
+  <body>
+    <div class="container">
+      <h1>Movie Recommendation App</h1>
+      <div class="input-container">
+        <label for="genre">Select Genre:</label>
+        <select id="genre">
+          <option value="action">Action</option>
+          <option value="comedy">Comedy</option>
+          <option value="drama">Drama</option>
+        </select>
+        <label for="rating">Select Rating:</label>
+        <select id="rating">
+          <option value="1">1 Star</option>
+          <option value="2">2 Stars</option>
+          <option value="3">3 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="5">5 Stars</option>
+        </select>
+        <label for="year">Select Release Year:</label>
+        <select id="year">
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+        </select>
+        <button id="submit">Submit</button>
+      </div>
+      <div class="output-container">
+        <h2>Recommendations:</h2>
+        <ul id="movies"></ul>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+  <script>
+    // Movie data
+const movieData = [
+  {
+    title: 'The Dark Knight',
+    genre: 'action',
+    rating: 5,
+    year: 2008
+  },
+  {
+    title: 'Inception',
+    genre: 'action',
+    rating: 4,
+    year: 2010
+  },
+  {
+    title: 'The Hangover',
+    genre: 'comedy',
+    rating: 3,
+    year: 2009
+  },
+  {
+    title: 'Bridesmaids',
+    genre: 'comedy',
+    rating: 4,
+    year: 2011
+  },
+  {
+    title: 'The Shawshank Redemption',
+    genre: 'drama',
+    rating: 5,
+    year: 1994
+  },
+  {
+    title: 'Forrest Gump',
+    genre: 'drama',
+    rating: 4,
+    year: 1994
+  }
+];
+
+// Get DOM elements
+const genreSelect = document.getElementById('genre');
+const ratingSelect = document.getElementById('rating');
+const yearSelect = document.getElementById('year');
+const submitButton = document.getElementById('submit');
+const moviesList = document.getElementById('movies');
+
+// Event listener for submit button
+submitButton.addEventListener('click', () => {
+  // Get user input
+  const selectedGenre = genreSelect.value;
+  const selectedRating = parseInt(ratingSelect.value);
+  const selectedYear = parseInt(yearSelect.value);
+
+  // Filter movie data based on user input
+  const filteredMovies = movieData.filter(movie => {
+    return (
+      movie.genre === selectedGenre &&
+      movie.rating >= selectedRating &&
+      movie.year >= selectedYear
+    );
+  });
+
+  // Display movie recommendations
+  moviesList.innerHTML = '';
+  filteredMovies.forEach(movie => {
+    const li = document.createElement('li');
+    li.innerText = movie.title;
+    moviesList.appendChild(li);
+  });
+});
+
+  </script>
+</html>
